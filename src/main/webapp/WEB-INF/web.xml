@@ -11,4 +11,28 @@
         <servlet-name>Admin_Form</servlet-name>
         <url-pattern>/admin/form</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.product.CreateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <url-pattern>/products/create</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ProductListServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.product.ProductListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductListServlet</servlet-name>
+        <url-pattern>/products/list</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.product.UpdateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <url-pattern>/products/update</url-pattern>
+    </servlet-mapping>
 </web-app>
