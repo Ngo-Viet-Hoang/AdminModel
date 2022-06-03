@@ -1,4 +1,6 @@
-<%@ page import="java.util.HashMap" %>
+<%@ page import="com.example.adminmodel.entity.Category" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><<%@ page import="java.util.HashMap" %>
 <%@ page import="com.example.adminmodel.entity.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
@@ -30,7 +32,7 @@
         <div class="navbar-menu-wrapper d-flex align-items-top">
             <ul class="navbar-nav">
                 <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                    <h1 class="welcome-text">Good Morning</h1>
+                    <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
                     <h3 class="welcome-sub-text">Your performance summary this week </h3>
                 </li>
             </ul>
@@ -106,96 +108,81 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Product List</h4>
-                                <a href="<%=request.getContextPath()%>/products/create" class="btn btn-primary me-2">Add
-                                    New </a>
+                                <h4 class="card-title">Category List</h4>
+<a href="<%=request.getContextPath()%>/categories/create" class="btn btn-primary me-2">Add
+    New</a>
 
-                                <div class="table-responsive pt-3">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                ID
-                                            </th>
-                                            <th>
-                                                Thumbnail
-                                            </th>
-                                            <th>
-                                                Name
-                                            </th>
-                                            <th>
-                                                Price
-                                            </th>
+<div class="table-responsive pt-3">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Created At
+            </th>
+            <th>
+                Updated At
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            List<Category> categories = (ArrayList<Category>) request.getAttribute("categoryList");
+            for(Category category : categories) {%>
+        <tr>
+            <td>
+                    <%= category.getId() %>
 
-                                            <th>
-                                                Status
-                                            </th>
-                                            <th>
-                                                Created At
-                                            </th>
-                                            <th>
-                                                Updated At
-                                            </th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <%
-                                            List<Product> products = (ArrayList<Product>) request.getAttribute("productList");
-                                            for(Product product : products) {%>
-                                        <tr>
-                                            <td>
-                                                <%= product.getId() %>
-                                            <td>
-                                                <img width="200" src="<%= product.getThumbnail() %>" />
-                                            </td>
-                                            <td><%= product.getName() %></td>
-                                            <td><%= product.getPrice() %></td>
-                                            <td><%= product.getProductStatus() %></td>
-                                            <td><%= product.getCreatedAt() %></td>
-                                            <td><%= product.getUpdatedAt() %></td>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary" href="/products/update?id=<%= product.getId() %>">Edit</a>
-                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= product.getId() %>">Delete</button>
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="exampleModal<%= product.getId() %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Alert</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Are you sure delete <%= product.getName() %>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <a href="/products/delete?id=<%= product.getId() %>" class="btn btn-danger">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-                                        <%}%>
-                                        </tbody>
-                                    </table>
-                                </div>
+            <td><%= category.getName() %></td>
+            <td><%= category.getCreatedAt() %></td>
+            <td><%= category.getUpdatedAt() %></td>
+            </td>
+            <td>
+                <a class="btn btn-primary" href="/update?id=<%= category.getId() %>">Edit</a>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= category.getId() %>">Delete</button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal<%= category.getId() %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Alert</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure delete <%= category.getName() %>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="/delete?id=<%= category.getId() %>" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- content-wrapper ends -->
-            <!-- partial:../../partials/_footer.html -->
-            ->
-        </div>
+            </td>
 
-        <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- content-wrapper ends -->
+<!-- partial:../../partials/_footer.html -->
+->
+</div>
+
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
 <!-- plugins:js -->

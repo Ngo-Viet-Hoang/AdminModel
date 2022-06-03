@@ -28,6 +28,20 @@ public class UpdateProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html; chartset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        String detail = req.getParameter("detail");
+        Double price = Double.parseDouble(req.getParameter("price"));
+        String thumbnail = req.getParameter("thumbnail");
+        String manufactureEmail = req.getParameter("manufactureEmail");
+        String manufacturePhone = req.getParameter("manufacturePhone");
+        Product product = new Product(name, description,detail, price,  thumbnail, manufactureEmail, manufacturePhone);
+        if(productModel.update(id, product)) {
+            resp.sendRedirect("/products/list");
+        }
     }
 }

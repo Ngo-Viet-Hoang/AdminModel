@@ -38,14 +38,14 @@ public class CreateProductServlet extends HttpServlet {
         String thumbnail = req.getParameter("thumbnail");
         String manufactureEmail = req.getParameter("manufactureEmail");
         String manufacturePhone = req.getParameter("manufacturePhone");
-        Product product = new Product("Product 3335552", "description", "detail", 10000, "src/image/product.png", "admin@gmail.com", "0123456789");
-        if(product.isValid()) {
+        Product product = new Product(name, description,detail, price,  thumbnail, manufactureEmail, manufacturePhone);
+       if(product.isValid()) {
             mySqlProductModel.save(product);
-            resp.sendRedirect("/list");
+            resp.sendRedirect("/products/list");
         }else {
             req.setAttribute("errors", product.getErrors());
             req.setAttribute("product", product); // set lai product de luu ga tri
-            req.getRequestDispatcher("/product/create.jsp").forward(req,resp);
+            req.getRequestDispatcher("/admin/views/product/create.jsp").forward(req,resp);
         }
     }
 }

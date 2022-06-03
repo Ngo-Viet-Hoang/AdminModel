@@ -12,6 +12,42 @@
         <url-pattern>/admin/form</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>CreateCategoryServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.category.CreateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateCategoryServlet</servlet-name>
+        <url-pattern>/categories/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CategoryListServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.category.ListCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CategoryListServlet</servlet-name>
+        <url-pattern>/categories/list</url-pattern>
+    </servlet-mapping>
+    <servlet>
+
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.category.UpdateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <url-pattern>/categories/update</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteCategory</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.category.DeleteCategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteCategory</servlet-name>
+        <url-pattern>/categories/delete</url-pattern>
+    </servlet-mapping>
+
+<!--    product-->
+    <servlet>
         <servlet-name>CreateProductServlet</servlet-name>
         <servlet-class>com.example.adminmodel.controller.product.CreateProductServlet</servlet-class>
     </servlet>
@@ -34,5 +70,13 @@
     <servlet-mapping>
         <servlet-name>UpdateProductServlet</servlet-name>
         <url-pattern>/products/update</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.product.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/products/delete</url-pattern>
     </servlet-mapping>
 </web-app>
