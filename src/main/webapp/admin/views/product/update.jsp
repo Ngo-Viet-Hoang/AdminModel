@@ -99,6 +99,9 @@
         <jsp:include page="/admin/components/sidebar.jsp"/>
         <!-- partial -->
         <div class="main-panel">
+            <%
+                Product product = (Product) request.getAttribute("product");
+            %>
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-12 grid-margin stretch-card">
@@ -106,17 +109,17 @@
                             <div class="card-body">
                                 <h4 class="card-title">Products</h4>
                                 <p class="card-description">
-                                    Create
+                                    Update
                                 </p>
-                                <form class="forms-sample">
+                                <form class="forms-sample" action="/products/update" method="post">
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name"  placeholder="Name">
+                                        <input type="text" class="form-control" id="name" name="name"  placeholder="Name" value="<%= product.getName() %>">
 
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <input type="text" class="form-control"  id="description" name="description" placeholder="Description">
+                                        <input type="text" class="form-control"  id="description" name="description" placeholder="Description" value="<%= product.getDescription() %>"   >
                                     </div>
                                     <div class="form-group">
                                         <label for="detail">Detail</label>

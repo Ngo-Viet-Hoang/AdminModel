@@ -4,6 +4,8 @@
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="/admin/components/header.jsp" />
+<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+
 
 
 <body>
@@ -53,11 +55,21 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="detail">Detail</label>
-                                        <textarea name="detail" class="form-control" id="detail" rows="4">
+                                        <label>Detail</label>
+                                        <div name="detail" id="editor" >
                                              <%= product.getDetail() %>
-                                        </textarea>
+                                        </div>
                                     </div>
+                                    <script>
+                                        ClassicEditor
+                                            .create( document.querySelector( '#editor' ) )
+                                            .then( editor => {
+                                                console.log( editor );
+                                            } )
+                                            .catch( error => {
+                                                console.error( error );
+                                            } );
+                                    </script>
                                     <div class="form-group">
                                         <label for="price">Price</label>
                                         <input  class="form-control" id="price" name="price" placeholder="Price"  value="<%= product.getPrice() %>">
@@ -93,9 +105,9 @@
                                         <% } %>
                                     </div>
                                     <div class="form-group">
-                                        <label for="thumbnail">Thumbnail</label>>
+                                        <label >Thumbnail</label>
                                         <div class="input-group col-xs-12">
-                                            <input type="text" id="thumbnail" name="thumbnail" class="form-control "  placeholder="Upload Thumbnail" value="<%= product.getThumbnail() %>">
+                                            <button id="upload_widget" type="button" name="thumbnail" class="btn btn-primary me-2"  value="<%= product.getThumbnail() %>">Choose Imange</button>
                                             <%
                                                 if(errors.containsKey("thumbnail"))   {
                                             %>
@@ -140,6 +152,23 @@
 <script src="/admin/assets/js/file-upload.js"></script>
 <script src="/admin/assets/js/typeahead.js"></script>
 <script src="/admin/assets/js/select2.js"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var myWidget = cloudinary.createUploadWidget({
+            cloudName: 'FPT ApTech',
+            uploadPreset: 'arkkjwlv'}, (error, result) => {
+            if (!error && result && result.event === "success") {
+                console.log('Done! Here is the image info: ', result.info.secure_url);
+            }
+        }
+    )
+
+    document.getElementById("upload_widget").addEventListener("click", function(){
+        myWidget.open();
+    }, false);
+</script>
+
 <!-- End custom js for this page-->
 </body>
 

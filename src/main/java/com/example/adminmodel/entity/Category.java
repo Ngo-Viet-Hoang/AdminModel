@@ -23,7 +23,7 @@ public class Category extends BaseEntity {
         this.name = name;
     }
 
-    public Category(int id, String name, CategoryStatus status, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, ProductStatus productStatus) {
+    public Category(int id, String name, ProductStatus productStatus, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy) {
         super(createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy, productStatus);
         this.id = id;
         this.name = name;

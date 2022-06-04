@@ -117,7 +117,7 @@ public class MySqlCategoryModel implements CategoryModel{
         List<Category> categories = new ArrayList<>();
         try{
             Connection connection = ConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.PRODUCT_FIND_ALL);
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_FIND_ALL);
             preparedStatement.setInt(1, CategoryStatus.ACTIVE.getValue());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
@@ -133,7 +133,7 @@ public class MySqlCategoryModel implements CategoryModel{
                 int updatedBy = rs.getInt("updatedBy");
                 int deletedBy = rs.getInt("deletedBy");
                 ProductStatus status = ProductStatus.of(rs.getInt("status"));
-                Category category = new Category();
+                Category category = new Category(id,name,status,createdAt, updatedAt,deletedAt,createdBy, updatedBy,deletedBy );
                 categories.add(category);
             }
         }catch (SQLException e) {

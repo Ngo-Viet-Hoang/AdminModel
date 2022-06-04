@@ -143,7 +143,7 @@
             <td><%= category.getUpdatedAt() %></td>
             </td>
             <td>
-                <a class="btn btn-primary" href="/update?id=<%= category.getId() %>">Edit</a>
+                <a class="btn btn-primary" href="/categories/update?id=<%= category.getId() %>">Edit</a>
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<%= category.getId() %>">Delete</button>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal<%= category.getId() %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,7 +158,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <a href="/delete?id=<%= category.getId() %>" class="btn btn-danger">Delete</a>
+                                <a href="/categories/delete?id=<%= category.getId() %>" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>
