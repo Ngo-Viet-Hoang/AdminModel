@@ -17,7 +17,7 @@ class MySqlProductModelTest {
 
     @Test
     void save() {
-        Product product = new Product("Product 32", "description", "detail", 10000,"src/image/product.png","admin@gmail.com", "0123456789" );
+        Product product = new Product(1,"pen111", "description", "detail", 10000,"src/image/product.png");
         assertEquals(true, productModel.save(product));
 
     }

@@ -1,5 +1,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="com.example.adminmodel.entity.Product" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.adminmodel.entity.Category" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -9,6 +12,12 @@
 
 
 <body>
+<%
+     List<Category> categories = (List<Category>) request.getAttribute("categories");
+     if(categories == null){
+         categories = new ArrayList<>();
+     }
+%>
 <%
     HashMap<String, String> errors = (HashMap<String, String>) request.getAttribute("errors");
     if(errors == null) {
@@ -38,6 +47,15 @@
                                 </p>
                                 <form class="forms-sample" action="/products/create" method="post">
                                     <div class="form-group">
+                                        <label >Choose Category</label>
+                                        <select class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split show" name="categoryId" >
+                                        <%for (int i = 0; i < categories.size(); i++) {%>
+                                            <option value="<%= categories.get(i).getId()%>"><%=categories.get(i).getName()%></option>
+                                            <%}%>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" class="form-control" id="name" name="name"  value="<%= product.getName() %>"  placeholder="Name">
                                         <%
@@ -60,16 +78,6 @@
                                              <%= product.getDetail() %>
                                         </div>
                                     </div>
-                                    <script>
-                                        ClassicEditor
-                                            .create( document.querySelector( '#editor' ) )
-                                            .then( editor => {
-                                                console.log( editor );
-                                            } )
-                                            .catch( error => {
-                                                console.error( error );
-                                            } );
-                                    </script>
                                     <div class="form-group">
                                         <label for="price">Price</label>
                                         <input  class="form-control" id="price" name="price" placeholder="Price"  value="<%= product.getPrice() %>">
@@ -83,30 +91,10 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="manufactureEmail">Manufacture Email</label>
-                                        <input type="text"  class="form-control" id="manufactureEmail" name="manufactureEmail" placeholder="Manufacture Email" value="<%= product.getManufactureEmail() %>">
-                                        <%
-                                            if(errors.containsKey("manufactureEmail"))   {
-                                        %>
-                                        <div class="invalid-feedback">
-                                            <%= errors.get("manufactureEmail")%>
-                                        </div>
-                                        <% } %>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="manufacturePhone">Manufacture Phone</label>
-                                        <input type="text"  class="form-control" id="manufacturePhone" name="manufacturePhone" placeholder="Manufacture Phone"  value="<%= product.getManufacturePhone() %>">
-                                        <%
-                                            if(errors.containsKey("manufacturePhone"))   {
-                                        %>
-                                        <div class="invalid-feedback">
-                                            <%= errors.get("manufacturePhone")%>
-                                        </div>
-                                        <% } %>
-                                    </div>
-                                    <div class="form-group">
                                         <label >Thumbnail</label>
                                         <div class="input-group col-xs-12">
+
+
                                             <button id="upload_widget" type="button" name="thumbnail" class="btn btn-primary me-2"  value="<%= product.getThumbnail() %>">Choose Imange</button>
                                             <%
                                                 if(errors.containsKey("thumbnail"))   {
@@ -116,6 +104,10 @@
                                             </div>
                                             <% } %>
                                         </div>
+                                        <div>
+                                        <img class="img-size-64 img-rounded img-thumbnail" id="preview-image" src="<%=product.getThumbnail()%>">
+                                        <input type="hidden" name="thumbnail" id="hidden- thumbnails">
+                                    </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     <button class="btn btn-light">Cancel</button>
@@ -153,13 +145,24 @@
 <script src="/admin/assets/js/typeahead.js"></script>
 <script src="/admin/assets/js/select2.js"></script>
 <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 <script type="text/javascript">
     var myWidget = cloudinary.createUploadWidget({
-            cloudName: 'FPT ApTech',
+            cloudName: 'smiley-face',
             uploadPreset: 'arkkjwlv'}, (error, result) => {
             if (!error && result && result.event === "success") {
-                console.log('Done! Here is the image info: ', result.info.secure_url);
+                $('#preview-image').attr('src',result.info.secure_url );
+                $('#hidden- thumbnails').val(result.info.secure_url );
             }
         }
     )

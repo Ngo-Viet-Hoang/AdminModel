@@ -20,24 +20,23 @@ public class MySqlProductModel implements ProductModel{
         try {
             Connection connection = ConnectionHelper.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.PRODUCT_INSERT);
-            preparedStatement.setString(1, product.getName());
-            preparedStatement.setString(2, product.getDescription());
-            preparedStatement.setString(3, product.getDetail());
-            preparedStatement.setDouble(4, product.getPrice());
-            preparedStatement.setString(5, product.getThumbnail());
-            preparedStatement.setString(6, product.getManufactureEmail());
-            preparedStatement.setString(7, product.getManufacturePhone());
-            preparedStatement.setString(8, product.getCreatedAt().toString());
-            preparedStatement.setString(9, product.getUpdatedAt().toString());
+            preparedStatement.setInt(1,product.getCategoryId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setString(4, product.getDetail());
+            preparedStatement.setDouble(5, product.getPrice());
+            preparedStatement.setString(6, product.getThumbnail());
+            preparedStatement.setString(7, product.getCreatedAt().toString());
+            preparedStatement.setString(8, product.getUpdatedAt().toString());
             if(product.getDeletedAt() != null) {
-                preparedStatement.setString(10, product.getDeletedAt().toString());
+                preparedStatement.setString(9, product.getDeletedAt().toString());
             }else {
-                preparedStatement.setString(10, null);
+                preparedStatement.setString(9, null);
             }
-            preparedStatement.setInt(11, product.getCreatedBy());
-            preparedStatement.setInt(12, product.getUpdatedBy());
-            preparedStatement.setInt(13, product.getDeletedBy());
-            preparedStatement.setInt(14, product.getProductStatus().getValue());
+            preparedStatement.setInt(10, product.getCreatedBy());
+            preparedStatement.setInt(11, product.getUpdatedBy());
+            preparedStatement.setInt(12, product.getDeletedBy());
+            preparedStatement.setInt(13, product.getProductStatus().getValue());
 
             return preparedStatement.executeUpdate() >0;
 
@@ -52,25 +51,24 @@ public class MySqlProductModel implements ProductModel{
         try{
             Connection connection = ConnectionHelper.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.PRODUCT_UPDATE);
-            preparedStatement.setString(1, product.getName());
-            preparedStatement.setString(2, product.getDescription());
-            preparedStatement.setString(3, product.getDetail());
-            preparedStatement.setDouble(4, product.getPrice());
-            preparedStatement.setString(5, product.getThumbnail());
-            preparedStatement.setString(6, product.getManufactureEmail());
-            preparedStatement.setString(7, product.getManufacturePhone());
-            preparedStatement.setString(8, product.getCreatedAt().toString());
-            preparedStatement.setString(9, product.getUpdatedAt().toString());
+            preparedStatement.setInt(1,product.getCategoryId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setString(4, product.getDetail());
+            preparedStatement.setDouble(5, product.getPrice());
+            preparedStatement.setString(6, product.getThumbnail());
+            preparedStatement.setString(7, product.getCreatedAt().toString());
+            preparedStatement.setString(8, product.getUpdatedAt().toString());
             if(product.getDeletedAt() != null) {
-                preparedStatement.setString(10, product.getDeletedAt().toString());
+                preparedStatement.setString(9, product.getDeletedAt().toString());
             }else {
-                preparedStatement.setString(10, null);
+                preparedStatement.setString(9, null);
             }
-            preparedStatement.setInt(11, product.getCreatedBy());
-            preparedStatement.setInt(12, product.getUpdatedBy());
-            preparedStatement.setInt(13, product.getDeletedBy());
-            preparedStatement.setInt(14, product.getProductStatus().getValue());
-            preparedStatement.setInt(15, id);
+            preparedStatement.setInt(10, product.getCreatedBy());
+            preparedStatement.setInt(11, product.getUpdatedBy());
+            preparedStatement.setInt(12, product.getDeletedBy());
+            preparedStatement.setInt(13, product.getProductStatus().getValue());
+            preparedStatement.setInt(14, id);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -101,13 +99,12 @@ public class MySqlProductModel implements ProductModel{
             preparedStatement.setInt(2, ProductStatus.ACTIVE.getValue());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
+                int categoryId = rs.getInt("categoryId");
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 String detail = rs.getString("detail");
                 Double price = rs.getDouble("price");
                 String thumbnail = rs.getString("thumbnail");
-                String manufactureEmail = rs.getString("manufactureEmail");
-                String manufacturePhone = rs.getString("manufacturePhone");
                 LocalDateTime createdAt = rs.getTimestamp("createdAt").toLocalDateTime();
                 LocalDateTime updatedAt = rs.getTimestamp("updatedAt").toLocalDateTime();
                 LocalDateTime deletedAt = null;
@@ -118,7 +115,7 @@ public class MySqlProductModel implements ProductModel{
                 int updatedBy = rs.getInt("updatedBy");
                 int deletedBy = rs.getInt("deletedBy");
                 ProductStatus status = ProductStatus.values()[rs.getInt("status")];
-                Product product = new Product(id, name, description, detail, price, thumbnail,manufactureEmail, manufacturePhone, createdAt, updatedAt, deletedAt, createdBy, updatedBy,deletedBy, status);
+                Product product = new Product(id, categoryId,  name, description, detail, price, thumbnail, createdAt, updatedAt, deletedAt, createdBy, updatedBy,deletedBy, status);
                 return product;
             }
         }catch (SQLException e) {
@@ -138,6 +135,7 @@ public class MySqlProductModel implements ProductModel{
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
+                int categoryId = rs.getInt("categoryId");;
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 String detail = rs.getString("detail");
@@ -155,7 +153,7 @@ public class MySqlProductModel implements ProductModel{
                 int updatedBy = rs.getInt("updatedBy");
                 int deletedBy = rs.getInt("deletedBy");
                 ProductStatus status = ProductStatus.of(rs.getInt("status"));
-                Product product = new Product(id, name, description, detail, price, thumbnail, manufactureEmail, manufacturePhone, createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy, status);
+                Product product = new Product(id,categoryId , name, description, detail, price, thumbnail, createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy, status);
                 products.add(product);
             }
         }catch (SQLException e) {

@@ -13,7 +13,7 @@ public class ConnectionHelper {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             if(connection == null || connection.isClosed()){
-                connection = DriverManager.getConnection(DATABASE_URL,DATABASE_USERNAME, DATABASE_PASSWORD);
+                connection = DriverManager. getConnection(DATABASE_URL,DATABASE_USERNAME, DATABASE_PASSWORD);
             }
             System.out.println("Connect Success");
 

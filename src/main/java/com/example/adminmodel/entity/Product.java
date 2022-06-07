@@ -9,13 +9,12 @@ import java.util.HashMap;
 
 public class Product extends BaseEntity {
     private int id;
+    private int categoryId;
     private String name;
     private String description;
     private String detail;
     private double price;
     private String thumbnail;
-    private String manufactureEmail;
-    private String manufacturePhone;
     private HashMap<String, String> errors;
 
     public Product() {
@@ -25,46 +24,40 @@ public class Product extends BaseEntity {
         this.detail = "";
         this.price = 0.0;
         this.thumbnail = "";
-        this.manufactureEmail = "";
-        this.manufacturePhone = "";
     }
 
-    public Product( int id, String name, String description, String detail, double price, String thumbnail, String manufactureEmail, String manufacturePhone, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, ProductStatus productStatus) {
+    public Product(int categoryId, String name, String description, String detail, double price, String thumbnail) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.detail = detail;
+        this.price = price;
+        this.thumbnail = thumbnail;
+        errors = new HashMap<>();
+    }
+
+    public Product(int id, int categoryId, String name, String description, String detail, double price, String thumbnail) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.detail = detail;
+        this.price = price;
+        this.thumbnail = thumbnail;
+        errors = new HashMap<>();
+
+    }
+
+    public Product( int id, int categoryId, String name, String description, String detail, double price, String thumbnail, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, ProductStatus productStatus) {
         super(createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy, productStatus);
         this.id = id;
+        this.categoryId = categoryId;
         this.name = name;
         this.description = description;
         this.detail = detail;
         this.price = price;
         this.thumbnail = thumbnail;
-        this.manufactureEmail = manufactureEmail;
-        this.manufacturePhone = manufacturePhone;
         errors = new HashMap<>();
-    }
-
-    public Product(int id, String name, String description, String detail, double price, String thumbnail, String manufactureEmail, String manufacturePhone) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.detail = detail;
-        this.price = price;
-        this.thumbnail = thumbnail;
-        this.manufactureEmail = manufactureEmail;
-        this.manufacturePhone = manufacturePhone;
-        errors = new HashMap<>();
-
-    }
-
-    public Product(String name, String description, String detail, double price, String thumbnail, String manufactureEmail, String manufacturePhone) {
-        this.name = name;
-        this.description = description;
-        this.detail = detail;
-        this.price = price;
-        this.thumbnail = thumbnail;
-        this.manufactureEmail = manufactureEmail;
-        this.manufacturePhone = manufacturePhone;
-        errors = new HashMap<>();
-
     }
 
     public int getId() {
@@ -73,6 +66,14 @@ public class Product extends BaseEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -115,21 +116,6 @@ public class Product extends BaseEntity {
         this.thumbnail = thumbnail;
     }
 
-    public String getManufactureEmail() {
-        return manufactureEmail;
-    }
-
-    public void setManufactureEmail(String manufactureEmail) {
-        this.manufactureEmail = manufactureEmail;
-    }
-
-    public String getManufacturePhone() {
-        return manufacturePhone;
-    }
-
-    public void setManufacturePhone(String manufacturePhone) {
-        this.manufacturePhone = manufacturePhone;
-    }
 
     public HashMap<String, String> getErrors() {
         return errors;
@@ -145,18 +131,6 @@ public class Product extends BaseEntity {
         }
         if(thumbnail == "" || thumbnail == null) {
             errors.put("thumbnail", "Please enter thumbnail");
-        }
-        if(manufactureEmail == "" || manufactureEmail == null) {
-            errors.put("manufactureEmail", "Please enter manufactureEmail");
-        }
-        if(manufacturePhone == "" || manufacturePhone == null) {
-            errors.put("manufacturePhone", "Please enter manufacturePhone");
-        }
-        if(manufactureEmail != "" && !ValidationHelper.validateEmail(manufactureEmail)) {
-            errors.put("manufactureEmail", "Invalid email");
-        }
-        if(manufacturePhone != "" && !ValidationHelper.validatePhone(manufacturePhone)) {
-            errors.put("manufacturePhone", "Invalid phone number");
         }
         return errors.size() == 0;
     }

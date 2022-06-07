@@ -32,6 +32,7 @@ public class UpdateProductServlet extends HttpServlet {
         resp.setContentType("text/html; chartset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(req.getParameter("id"));
+        int categoryId = Integer.parseInt(req.getParameter("category"));
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         String detail = req.getParameter("detail");
@@ -39,7 +40,7 @@ public class UpdateProductServlet extends HttpServlet {
         String thumbnail = req.getParameter("thumbnail");
         String manufactureEmail = req.getParameter("manufactureEmail");
         String manufacturePhone = req.getParameter("manufacturePhone");
-        Product product = new Product(name, description,detail, price,  thumbnail, manufactureEmail, manufacturePhone);
+        Product product = new Product( categoryId, name, description,detail, price,  thumbnail);
         if(productModel.update(id, product)) {
             resp.sendRedirect("/products/list");
         }
