@@ -106,7 +106,7 @@
                                         </div>
                                         <div>
                                         <img class="img-size-64 img-rounded img-thumbnail" id="preview-image" src="<%=product.getThumbnail()%>">
-                                        <input type="hidden" name="thumbnail" id="hidden- thumbnails">
+                                        <input type="hidden" name="thumbnail" id="hidden-thumbnails" value="">
                                     </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -162,7 +162,7 @@
             uploadPreset: 'arkkjwlv'}, (error, result) => {
             if (!error && result && result.event === "success") {
                 $('#preview-image').attr('src',result.info.secure_url );
-                $('#hidden- thumbnails').val(result.info.secure_url );
+                $('#hidden-thumbnails').val(result.info.secure_url);
             }
         }
     )

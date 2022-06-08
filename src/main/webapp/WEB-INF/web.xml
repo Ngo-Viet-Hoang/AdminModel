@@ -81,14 +81,14 @@
     </servlet-mapping>
 
 <!--    shoppingcart-->
-    <servlet>
-        <servlet-name>AddCartServlet</servlet-name>
-        <servlet-class>com.example.adminmodel.controller.shoppingcart.AddCartServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddCartServlet</servlet-name>
-        <url-pattern>/shopping-cart/add</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>AddCartServlet</servlet-name>-->
+<!--        <servlet-class>com.example.adminmodel.controller.shoppingcart.AddCartServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>AddCartServlet</servlet-name>-->
+<!--        <url-pattern>/shopping-cart/add</url-pattern>-->
+<!--    </servlet-mapping>-->
     
     <servlet>
         <servlet-name>SubCartServlet</servlet-name>
@@ -116,5 +116,24 @@
         <servlet-name>RemoveCartServlet</servlet-name>
         <url-pattern>/shopping-cart/remove</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.adminmodel.controller.Login.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.example.adminmodel.filterdemo.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/admin/**</url-pattern>
+    </filter-mapping>
 
 </web-app>
