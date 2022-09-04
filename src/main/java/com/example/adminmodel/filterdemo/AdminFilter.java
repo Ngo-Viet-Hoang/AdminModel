@@ -18,7 +18,7 @@ public class AdminFilter implements Filter {
         if(session.getAttribute("currentAccount") !=null) {
             Account account = (Account) session.getAttribute("currentAccount");
             System.out.println("Hello user:" + account.getUsename());
-            if(account.getRoleId() ==2 ){
+            if(account.getRoleId() ==2  ){
                 havePermission = true;
             }
         }
